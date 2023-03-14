@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock title %}
+
+{% block container %}
+    <div class="jumbotron jumbotron-fluid">
+        <h2 class="display-4">Kompletny plan rozwoju Twojego dziecka
+        </h2>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Wybierz wiek
+            </button>
+            <ul class="dropdown-menu">
+{#                <li><a class="dropdown-item" href="{% url 'article_view0' %}">0 miesięcy</a></li>#}
+                <li><a class="dropdown-item" href="#">1 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">2 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">3 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">4 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">5 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">6 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">7 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">8 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">9 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">10 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">11 miesiąc</a></li>
+                <li><a class="dropdown-item" href="#">12 miesiąc</a></li>
+            </ul>
+        </div>
+    </div>
+        {% endblock %}
