@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # local apps
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
+    'articles.apps.ArticlesConfig',
 
     # 3rd party
     'crispy_forms',
@@ -137,3 +138,11 @@ LOGIN_REDIRECT_URL = 'pages:home'
 LOGOUT_REDIRECT_URL = 'pages:home'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/images')
+try:
+    from config.local_settings import DATABASES
+except ModuleNotFoundError:
+    print("Brak konfiguracji bazy danych w pliku local_settings.py!")
+    print("Uzupełnij dane i spróbuj ponownie!")
+    exit(0)

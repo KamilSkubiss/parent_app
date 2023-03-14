@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Noworodek{% endblock title %}
+
+{% block container %}
+    <div class="accordion" id="accordionExample">
+        {% for article in object_list %}
+            {% if article.article_range == 0 %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ article.id }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ article.id }}" aria-expanded="false"
+                                aria-controls="collapse{{ article.id }}">
+                            {{ article.title }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ article.id }}" class="accordion-collapse collapse"
+                         aria-labelledby="heading{{ article.id }}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <p>{{ article.body }}</p>
+                            <img src="{{ article.article_image.url }}" alt="{{ article.title }}"/>
+                            <p>{{ article.date }}</p>
+                        </div>
+                        <section class="padding-large bg-light">
+                            <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
+                                <div class="carousel-inner container">
+                                    <div class="carousel-item active">
+                                        <div class="container w-75 d-flex">
+                                            <div class="carousel-caption d-block">
+
+                                                <h1>{{ first_recipe_name }}</h1>
+                                                <h3>{{ first_recipe_description }}</h3>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="container w-75 d-flex">
+                                            <div class="carousel-caption d-block">
+                                                <h1>{{ second_recipe_name }}</h1>
+                                                <h3>{{ second_recipe_description }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <div class="container w-75 d-flex">
+                                            <div class="carousel-caption d-block">
+                                                <h1>{{ third_recipe_name }}</h1>
+                                                <h3>{{ third_recipe_description }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                   data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                                   data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
