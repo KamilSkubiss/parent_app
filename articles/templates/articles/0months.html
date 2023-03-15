@@ -21,6 +21,15 @@
                             <img src="{{ article.article_image.url }}" alt="{{ article.title }}"/>
                             <p>{{ article.date }}</p>
                         </div>
+                                    <div class="card-footer">
+                {% for comment in article.comments.all %}
+                    <p>
+                        <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+                        {{ comment }}
+                    </p>
+                {% endfor %}
+                            <a href="{% url 'comment_new' article.pk %}">+ New Comment</a>
+            </div>
 
                     </div>
                 </div>
