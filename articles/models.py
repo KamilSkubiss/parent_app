@@ -45,6 +45,4 @@ class Article(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse('article_list')
-from django.db import models
 
-# Create your models here.
