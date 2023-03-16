@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, DetailView
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 from .models import Article, Comment
 
@@ -18,14 +18,14 @@ class ArticleView0(ListView):
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
-   model = Comment
-   template_name = 'articles/comment_new.html'
-   fields = ('comment',)
+    model = Comment
+    template_name = 'articles/comment_new.html'
+    fields = ('comment',)
 
-   def form_valid(self, form):
-       form.instance.author = self.request.user
-       form.instance.article = Article.objects.get(pk=self.kwargs['article_pk'])
-       return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.article = Article.objects.get(pk=self.kwargs['article_pk'])
+        return super().form_valid(form)
 
-   def get_success_url(self):
-       return reverse('detail_view', kwargs={'pk': self.kwargs['article_pk']})
+    def get_success_url(self):
+        return reverse('detail_view', kwargs={'pk': self.kwargs['article_pk']})
