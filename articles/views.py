@@ -17,6 +17,78 @@ class ArticleView0(ListView):
     context_object_name = 'article'
 
 
+class ArticleView1(ListView):
+    model = Article
+    template_name = 'articles/1months.html'
+    context_object_name = 'article'
+
+
+class ArticleView2(ListView):
+    model = Article
+    template_name = 'articles/2months.html'
+    context_object_name = 'article'
+
+
+class ArticleView3(ListView):
+    model = Article
+    template_name = 'articles/3months.html'
+    context_object_name = 'article'
+
+
+class ArticleView4(ListView):
+    model = Article
+    template_name = 'articles/4months.html'
+    context_object_name = 'article'
+
+
+class ArticleView5(ListView):
+    model = Article
+    template_name = 'articles/5months.html'
+    context_object_name = 'article'
+
+
+class ArticleView6(ListView):
+    model = Article
+    template_name = 'articles/6months.html'
+    context_object_name = 'article'
+
+
+class ArticleView7(ListView):
+    model = Article
+    template_name = 'articles/7months.html'
+    context_object_name = 'article'
+
+
+class ArticleView8(ListView):
+    model = Article
+    template_name = 'articles/8months.html'
+    context_object_name = 'article'
+
+
+class ArticleView9(ListView):
+    model = Article
+    template_name = 'articles/9months.html'
+    context_object_name = 'article'
+
+
+class ArticleView10(ListView):
+    model = Article
+    template_name = 'articles/10months.html'
+    context_object_name = 'article'
+
+
+class ArticleView11(ListView):
+    model = Article
+    template_name = 'articles/11months.html'
+    context_object_name = 'article'
+
+
+class ArticleView12(ListView):
+    model = Article
+    template_name = 'articles/12months.html'
+    context_object_name = 'article'
+
+
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'articles/comment_new.html'

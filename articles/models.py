@@ -9,7 +9,7 @@ MONTHS = (
     (3, '3 months'),
     (4, '4 months'),
     (5, '5 months'),
-    (5, '6 months'),
+    (6, '6 months'),
     (7, '7 months'),
     (8, '8 months'),
     (9, '9 months'),
