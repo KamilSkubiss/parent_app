@@ -21,16 +21,33 @@
                             <img src="{{ article.article_image.url }}" alt="{{ article.title }}"/>
                             <p>{{ article.date }}</p>
                         </div>
-                                    <div class="card-footer">
-                {% for comment in article.comments.all %}
-                    <p>
-                        <span class="font-weight-bold">{{ comment.author }} &middot;</span>
-                        {{ comment }}
-                    </p>
-                {% endfor %}
-                            <a href="{% url 'comment_new' article.pk %}">+ New Comment</a>
-            </div>
-
+                        <div class="card-footer">
+                            <div class="accordion" id="accordionComments{{ article.id }}">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="allComments{{ article.id }}">
+                                        <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseComments{{ article.id }}" aria-expanded="false"
+                                                aria-controls="collapseComments{{ article.id }}">
+                                            Wszystkie komentarze
+                                        </button>
+                                    </h2>
+                                    <div id="collapseComments{{ article.id }}" class="accordion-collapse collapse"
+                                         aria-labelledby="allComments{{ article.id }}"
+                                         data-bs-parent="#accordionComments{{ article.id }}">
+                                        <div class="accordion-body">
+                                            {% for comment in article.comments.all %}
+                                                <p>
+                                                    <span class="font-weight-bold">{{ comment.author }} | dodano {{ comment.created_on }} &middot;</span>
+                                                    {{ comment }}
+                                                </p>
+                                            {% endfor %}
+                                            <a href="{% url 'comment_new' article.pk %}">+ New Comment</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             {% endif %}
