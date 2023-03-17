@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'users.apps.UsersConfig',
     'articles.apps.ArticlesConfig',
+    'user_profile.apps.UserProfileConfig',
 
     # 3rd party
     'crispy_forms',
@@ -133,7 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = 'pages:home'
 LOGOUT_REDIRECT_URL = 'pages:home'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
