@@ -18,8 +18,6 @@ class EditProfileForm(UserChangeForm):
     first_name = forms.CharField(max_length=100)
     last_name = forms.CharField(max_length=100)
     username = forms.CharField(max_length=100)
-    last_login = forms.CharField(max_length=100)
-    date_joined = forms.CharField(max_length=100)
 
     class Meta(UserChangeForm):
         model = User
