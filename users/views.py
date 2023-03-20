@@ -1,11 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DetailView
 from django.urls import reverse_lazy
 from user_profile.models import Profile
+from django.contrib import messages
 
-from users.forms import CustomUserCreationForm, EditProfileForm
+from users.forms import CustomUserCreationForm, EditProfileForm, UserUpdateForm
 
 
 class SignUpView(CreateView):
@@ -14,13 +16,17 @@ class SignUpView(CreateView):
     template_name = 'registration/signup.html'
 
 
-class EditProfileView(UpdateView):
-    form_class = EditProfileForm
-    success_url = reverse_lazy('pages:home')
-    template_name = 'registration/edit_profile.html'
-
-    def get_object(self):
-        return self.request.user
+# class EditProfileView(UpdateView):
+#     form_class = EditProfileForm
+#     success_url = reverse_lazy('pages:home')
+#     template_name = 'registration/edit_profile.html'
+#
+#     def get_object(self):
+#         return self.request.user
+#
+#     def form_valid(self, form):
+#         self.object = form.save()
+#         return super().form_valid(form)
 
 
 class PasswordsChangeView(PasswordChangeView):
@@ -28,20 +34,31 @@ class PasswordsChangeView(PasswordChangeView):
     template_name = 'registration/password_change_form.html'
 
 
-class ShowProfileView(DetailView):
-    model = Profile
-    template_name = 'registration/user_profile.html'
-    success_url = reverse_lazy('pages:home')
+# class ShowProfileView(DetailView):
+#     model = Profile
+#     template_name = 'registration/user_profile.html'
+#     success_url = reverse_lazy('pages:home')
 
-    def get_object(self):
-        return self.request.user
+    # def get_object(self):
+    #     return self.request.user
 
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Profil został zaktualizowany!')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = EditProfileForm(instance=request.user.profile)
 
-    # def get_context_data(self, *args, **kwargs):
-    #     users = Profile.objects.all()
-    #     context = super(ShowProfileView, self).get_context_data(*args, **kwargs)
-    #     page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
-    #     context['page_user'] = page_user
-    #     return context
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
 
-
+    return render(request, 'registration/user_profile.html', context)
