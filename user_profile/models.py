@@ -40,7 +40,7 @@ class Task(models.Model):
     description = models.TextField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField(max_length=8)
-    children = models.ManyToManyField(Child)
+    child = models.ManyToManyField(Child)
 
     def __str__(self):
         return f"{self.title}: due {self.due_date}"
