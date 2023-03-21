@@ -6,8 +6,8 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib import messages
 
-from user_profile.models import Child
-from users.forms import CustomUserCreationForm, EditProfileForm, UserUpdateForm, ChildAddForm
+from user_profile.models import Child, Task
+from users.forms import CustomUserCreationForm, EditProfileForm, UserUpdateForm, ChildAddForm, TaskAddForm
 
 
 class SignUpView(CreateView):
@@ -23,6 +23,8 @@ class PasswordsChangeView(PasswordChangeView):
 
 @login_required
 def profile(request):
+    children = []
+    tasks = []
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = EditProfileForm(request.POST, request.FILES, instance=request.user.profile)
@@ -34,12 +36,14 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = EditProfileForm(instance=request.user.profile)
-        children = Child.objects.filter(user=request.user)
+        children = Child.objects.filter(user=request.user).all()
+        tasks = Task.objects.filter(child__in=children.all())
 
     context = {
         'u_form': u_form,
         'p_form': p_form,
         'children': children,
+        'tasks': tasks
     }
 
     return render(request, 'registration/user_profile.html', context)
@@ -62,3 +66,22 @@ def add_child(request):
         'form': form
     }
     return render(request, 'registration/child_add.html', context)
+
+
+@login_required
+def add_task(request):
+    if request.method == 'POST':
+        form = TaskAddForm(request.user, request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.save()
+            task.child.add(form.cleaned_data.get('child'))
+            messages.success(request, f'{task.title} został dodany do Twojego profilu!')
+            return redirect('profile')
+    else:
+        form = TaskAddForm(request.user)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'registration/task_new.html', context)

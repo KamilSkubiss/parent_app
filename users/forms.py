@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.forms import DateInput
 
-from user_profile.models import Profile, Child
+from user_profile.models import Profile, Child, Task
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -37,3 +37,19 @@ class ChildAddForm(forms.ModelForm):
     class Meta:
         model = Child
         fields = ('name', 'date_of_birth',)
+
+
+class TaskAddForm(forms.ModelForm):
+    title = forms.CharField(max_length=200)
+    description = forms.CharField(max_length=1000)
+    due_date = forms.CharField(widget=forms.widgets.DateTimeInput(attrs={"type": "date"}))
+    child = forms.ModelChoiceField(queryset=Child.objects.none())
+
+    class Meta:
+        model = Task
+        fields = ('title', 'description', 'due_date', 'child')
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['child'].queryset = Child.objects.filter(user=user)
+
