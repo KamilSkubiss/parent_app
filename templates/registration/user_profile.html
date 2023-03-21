@@ -37,15 +37,29 @@
 
 {% endblock %}
 {% block aside %}
-    {% if children %}
-        {% for child in children %}
-            <div class="card w-75 mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ child.name }}</h5>
-                    <p class="card-text">Data urodzenia {{ child.date_of_birth }}</p>
-                    <a href="#" class="btn btn-primary">Dodaj zadanie</a>
+{% if children %}
+{% for child in children %}
+    <div class="card w-75 mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ child.name }}</h5>
+            <p class="card-text">Data urodzenia {{ child.date_of_birth }}</p>
+        {% if tasks %}
+            {% for task in child.task_set.all %}
+                <div class="task">
+                    <h6>{{ task.title }}</h6>
+                    <p>{{ task.description }}</p>
+                    <p>{{ task.created_date }}</p>
+                    <p>Due date: {{ task.due_date }}</p>
                 </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+            {% endfor %}
+            {% else %}
+            <p>No tasks</p>
+        {% endif %}
+            <a href="{% url 'add_task' %}" class="btn btn-primary">Dodaj zadanie</a>
+        </div>
+    </div>
+{% endfor %}
+
+{% endif %}
 {% endblock aside %}
+
