@@ -1,7 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
-from user_profile.models import Profile
+from django.forms import DateInput
+
+from user_profile.models import Profile, Child
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -27,3 +29,11 @@ class EditProfileForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = Profile
         fields = ('age', 'bio', 'avatar')
+
+
+class ChildAddForm(forms.ModelForm):
+    date_of_birth = forms.CharField(widget=forms.widgets.DateTimeInput(attrs={"type": "date"}))
+
+    class Meta:
+        model = Child
+        fields = ('name', 'date_of_birth',)
