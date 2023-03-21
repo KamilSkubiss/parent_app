@@ -6,7 +6,7 @@
 {% block title %}Profil użytkownika{% endblock title %}
 
 {% block container %}
-    <h2>Profil</h2>
+    <h2>Profil użytkownika</h2>
     <div class="card mb-3">
         <div class="row g-0">
             <div class="col-md-2">
@@ -34,4 +34,18 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
+{% block aside %}
+    {% if children %}
+        {% for child in children %}
+            <div class="card w-75 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ child.name }}</h5>
+                    <p class="card-text">Data urodzenia {{ child.date_of_birth }}</p>
+                    <a href="#" class="btn btn-primary">Dodaj zadanie</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock aside %}
