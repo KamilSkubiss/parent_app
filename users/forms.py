@@ -1,8 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import DateInput
-
 from user_profile.models import Profile, Child, Task
 
 
@@ -53,3 +51,15 @@ class TaskAddForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['child'].queryset = Child.objects.filter(user=user)
 
+
+class DeleteTaskForm(forms.Form):
+    task_id = forms.IntegerField(widget=forms.HiddenInput())
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['task_id'].queryset = Task.objects.filter(child__user=user)
+
+    def delete(self):
+        task_id = self.cleaned_data['task_id']
+        task = Task.objects.get(id=task_id)
+        task.delete()
