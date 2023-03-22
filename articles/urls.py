@@ -20,5 +20,4 @@ urlpatterns = [
     path('12/', ArticleView12.as_view(), name='article_view12'),
     path('<int:pk>/', ArticleDetailView.as_view(), name='detail_view'),
     path('<int:article_pk>/comment/', CommentCreateView.as_view(), name='comment_new'),
-
 ]
