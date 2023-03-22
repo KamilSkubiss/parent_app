@@ -28,4 +28,26 @@
             </ul>
         </div>
     </div>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for article in articles %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ article.article_image.url }}" class="d-block w-100" style="max-width: 800px; max-height: 500px" alt="{{ article.title }}">
+        <div class="carousel-caption" style="color: black;">
+          <h5>{{ article.title }}</h5>
+          <p>{{ article.body }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
 {% endblock %}
