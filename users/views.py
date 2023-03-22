@@ -46,7 +46,7 @@ def profile(request):
         'tasks': tasks
     }
 
-    return render(request, 'registration/user_profile.html', context)
+    return render(request, 'users/user_profile.html', context)
 
 
 @login_required
@@ -65,7 +65,7 @@ def add_child(request):
     context = {
         'form': form
     }
-    return render(request, 'registration/child_add.html', context)
+    return render(request, 'users/child_add.html', context)
 
 
 @login_required
@@ -84,4 +84,12 @@ def add_task(request):
     context = {
         'form': form
     }
-    return render(request, 'registration/task_new.html', context)
+    return render(request, 'users/task_new.html', context)
+
+
+@login_required
+def delete_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+    task.delete()
+    messages.success(request, f'{task.title} został usunięty!')
+    return redirect('profile')
