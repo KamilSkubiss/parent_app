@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock title %}
+
+{% block container %}
+    <div class="jumbotron jumbotron-fluid">
+        <h2 class="display-4">Kompletny plan rozwoju Twojego dziecka
+        </h2>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                Wybierz wiek
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'article_view0' %}">0 miesięcy</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view1' %}">1 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view2' %}">2 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view3' %}">3 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view4' %}">4 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view5' %}">5 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view6' %}">6 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view7' %}">7 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view8' %}">8 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view9' %}">9 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view10' %}">10 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view11' %}">11 miesiąc</a></li>
+                <li><a class="dropdown-item" href="{% url 'article_view12' %}">12 miesiąc</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for article in articles %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ article.article_image.url }}" class="d-block w-100" style="max-width: 800px; max-height: 500px" alt="{{ article.title }}">
+        <div class="carousel-caption" style="color: black;">
+          <h5>{{ article.title }}</h5>
+          <p>{{ article.body }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+{% endblock %}
