@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<ul>
+  {% for article in object_list %}
+    <h2>{{ article.title }}</h2>
+      <h3>{{ article.body }}</h3>
+    <img src="{{ article.article_image.url}}" alt="{{ article.title }}">
+  {% endfor %}
+</ul>
+{% endblock %}
